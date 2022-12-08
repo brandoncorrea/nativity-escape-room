@@ -1,6 +1,8 @@
 import { Component } from "react";
+import Navigator from "./Navigator";
+import Store from "./Store";
 
-class EscapePin extends Component {
+export default class EscapePin extends Component {
   
   constructor(props) {
     super(props)
@@ -11,6 +13,7 @@ class EscapePin extends Component {
       pin4 : '',
     }
 
+    if (Store.pinEnteredCorrectly()) Navigator.finalChallenge()
     this.onChangeInput = this.onChangeInput.bind(this)
     this.submitAnswer = this.submitAnswer.bind(this)
   }
@@ -39,13 +42,14 @@ class EscapePin extends Component {
     (id === 'pin-4' ? !value : !this.state.pin4) ? 'pin-4' :
     null
 
-
   hasEnteredPin = () => this.state.pin1 && this.state.pin2 && this.state.pin3 && this.state.pin4
 
   submitAnswer() {
     let answer = `${this.state.pin1}${this.state.pin2}${this.state.pin3}${this.state.pin4}`
-    if (answer === '6153')
-      window.location.href = '/final-challenge'
+    if (answer === '6153') {
+      Store.savePinEntry()
+      Navigator.finalChallenge()
+    }
     else
       this.setState({error: 'Incorrect Combination!'})
   }
@@ -79,5 +83,3 @@ class EscapePin extends Component {
       }
     </div>
 }
-
-export default EscapePin;

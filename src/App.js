@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import EscapePin from './EscapePin'
 import FinalChallenge from './FinalChallenge'
+import KingdomKeys from './KingdomKeys';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Routes>
             <Route path="/" element={<EscapePin />} />
             <Route path="/final-challenge" element={<FinalChallenge />} />
+            <Route path="/kingdom-keys" element={<KingdomKeys />} />
           </Routes>
         </BrowserRouter>
       </header>
