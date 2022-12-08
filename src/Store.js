@@ -13,7 +13,7 @@ const questions = [
   {
     id: 2,
     text: "The first known person to prophesy about the coming Messiah is this famous Old Testament character:",
-    answer: 1,
+    answer: 4,
     options: [
       {id: 1, value: "Adam"},
       {id: 2, value: "Noah"},
