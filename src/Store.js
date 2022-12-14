@@ -72,4 +72,8 @@ export default class Store {
     let question = parseInt(this.get('final-challenge-question'))
     return isNaN(question) ? 0 : question
   }
+  static answerMystery1 = answer => this.set('answer-myster-1', answer)
+  static answerMystery2 = answer => this.set('answer-myster-2', answer)
+  static answerMystery3 = answer => this.set('answer-myster-3', answer)
+  static answerMystery4 = answer => this.set('answer-myster-4', answer)
 }
