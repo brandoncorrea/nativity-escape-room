@@ -85,6 +85,10 @@ class StoreProvider extends Component {
   answerMystery2 = () => this.setStore({ answeredMystery2: true })
   answerMystery3 = () => this.setStore({ answeredMystery3: true })
   answerMystery4 = () => this.setStore({ answeredMystery4: true })
+  answerMysteryQuestion1 = () => this.setStore({ answeredMysteryQuestion1: true })
+  answerMysteryQuestion2 = () => this.setStore({ answeredMysteryQuestion2: true })
+  answerMysteryQuestion3 = () => this.setStore({ answeredMysteryQuestion3: true })
+  answerMysteryQuestion4 = () => this.setStore({ answeredMysteryQuestion4: true })
   startEscapeRoom = () => this.setStore({ escapeRoomStarted: true })
   setFinalChallengeQuestionNumber = n => this.setStore({ finalChallengeQuestion: n })
   getFinalChallengeQuestion = n => questions[n]
@@ -105,6 +109,10 @@ class StoreProvider extends Component {
       answeredMystery2: false,
       answeredMystery3: false,
       answeredMystery4: false,
+      answeredMysteryQuestion1: false,
+      answeredMysteryQuestion2: false,
+      answeredMysteryQuestion3: false,
+      answeredMysteryQuestion4: false,
       escapeRoomStarted: false
     }
     set('store', JSON.stringify(state))
