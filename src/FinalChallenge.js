@@ -11,6 +11,9 @@ export default class FinalChallenge extends Component {
       answer: '',
       error: ''
     }
+
+    this.timeoutUser = this.timeoutUser.bind(this);
+    this.countDown = this.countDown.bind(this);
   }
 
   componentDidMount = () => this.setState({question: this.context.currentFinalChallengeQuestion()})
@@ -30,10 +33,31 @@ export default class FinalChallenge extends Component {
       this.setState({ question, answer: '', error: '' })
   }
 
+  timeoutUser() {
+    if (!this.state.timer) {
+      let timer = setInterval(this.countDown, 1000);
+      this.setState({timer, seconds: 30})
+    }
+  }
+
+  displayErrorMessage() {
+    this.setState({error: "That was not the right answer!"})
+    if (this.state.question.options) this.timeoutUser()
+  }
+
+  countDown() {
+    let seconds = this.state.seconds - 1;
+    if (seconds <= 0) {
+      clearInterval(this.state.timer)
+      this.setState({timer: undefined, seconds: 0})
+    } else
+      this.setState({ seconds })
+  }
+
   submitAnswer = () =>
     this.correctlyAnswered() ?
       this.showNextQuestion() :
-      this.setState({error: "That was not the right answer!"})
+      this.displayErrorMessage()
 
   render = () =>
     <div className="container text-center mt-3">
@@ -72,9 +96,11 @@ export default class FinalChallenge extends Component {
         <h3 className="text-danger mb-3">{this.state.error}</h3>
       }
       {
-        this.state.answer &&
+        (this.state.answer || this.state.timer) &&
         <div className="d-grid mb-3">
-          <button className="btn btn-primary" type="button" onClick={this.submitAnswer}>Submit</button>
+          <button className="btn btn-primary" type="button" onClick={this.submitAnswer} disabled={this.state.timer}>
+            { this.state.timer ? this.state.seconds : "Submit" }
+          </button>
         </div>
       }
     </div>
