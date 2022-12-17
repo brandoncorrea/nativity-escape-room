@@ -6,10 +6,10 @@ const questions = [
     text: "Isaiah prophesied the virgin birth in this year:", 
     answer: 1,
     options: [
-      {id: 1, value: "750 BC"},
-      {id: 2, value: "725 BC"},
-      {id: 3, value: "700 BC"},
-      {id: 4, value: "675 BC"}
+      {value: 1, label: "750 BC"},
+      {value: 2, label: "725 BC"},
+      {value: 3, label: "700 BC"},
+      {value: 4, label: "675 BC"}
     ]
   },
   {
@@ -17,10 +17,10 @@ const questions = [
     text: "The first known person to prophesy about the coming Messiah is this famous Old Testament character:",
     answer: 4,
     options: [
-      {id: 1, value: "Adam"},
-      {id: 2, value: "Noah"},
-      {id: 3, value: "Abraham"},
-      {id: 4, value: "Moses"}
+      {value: 1, label: "Adam"},
+      {value: 2, label: "Noah"},
+      {value: 3, label: "Abraham"},
+      {value: 4, label: "Moses"}
     ]
   },
   {
@@ -28,9 +28,9 @@ const questions = [
     text: "Joseph married Mary even though she was pregnant because an angel:",
     answer: 3,
     options: [
-      {id: 1, value: "appeared in a burning bush"},
-      {id: 2, value: "appeared in a field by night"},
-      {id: 3, value: "appeared in a dream"}
+      {value: 1, label: "appeared in a burning bush"},
+      {value: 2, label: "appeared in a field by night"},
+      {value: 3, label: "appeared in a dream"}
     ]
   },
   {
@@ -43,10 +43,10 @@ const questions = [
     text: "Another name for Bethlehem was used by the angels who appeared to the shepherds. They called Bethlehem:",
     answer: 3,
     options: [
-      {id: 1, value: "City of Light"},
-      {id: 2, value: "City of Angels"},
-      {id: 3, value: "Town of David"},
-      {id: 4, value: "Town of Micah"}
+      {value: 1, label: "City of Light"},
+      {value: 2, label: "City of Angels"},
+      {value: 3, label: "Town of David"},
+      {value: 4, label: "Town of Micah"}
     ]
   },
   {
@@ -54,10 +54,10 @@ const questions = [
     text: "Herod's counselors checked a certain Bible verse to tell the Magi where the Messia would be born. That verse is:",
     answer: 3,
     options: [
-      {id: 1, value: "John 3:16"},
-      {id: 2, value: "Revelation 22:1"},
-      {id: 3, value: "Micah 5:2"},
-      {id: 4, value: "Isaiah 53:5"}
+      {value: 1, label: "John 3:16"},
+      {value: 2, label: "Revelation 22:1"},
+      {value: 3, label: "Micah 5:2"},
+      {value: 4, label: "Isaiah 53:5"}
     ]
   }
 ]
