@@ -1,9 +1,9 @@
 import { Component } from "react";
-import Navigator from "./Navigator";
-import Store from "./Store";
+import StoreContext from "./Store";
 
 export default class EscapePin extends Component {
-  
+  static contextType = StoreContext
+
   constructor(props) {
     super(props)
     this.state = {
@@ -13,7 +13,6 @@ export default class EscapePin extends Component {
       pin4 : '',
     }
 
-    if (Store.pinEnteredCorrectly()) Navigator.finalChallenge()
     this.onChangeInput = this.onChangeInput.bind(this)
     this.submitAnswer = this.submitAnswer.bind(this)
   }
@@ -46,16 +45,14 @@ export default class EscapePin extends Component {
 
   submitAnswer() {
     let answer = `${this.state.pin1}${this.state.pin2}${this.state.pin3}${this.state.pin4}`
-    if (answer === '6153') {
-      Store.savePinEntry()
-      Navigator.finalChallenge()
-    }
+    if (answer === '6153')
+      this.context.savePinEntry()
     else
       this.setState({error: 'Incorrect Combination!'})
   }
 
   render = () =>
-    <div className="container text-center">
+    <div className="container text-center mt-3">
       <p className="lead">Enter the 4-digit code to escape</p>
       <div className="row mb-3">
         <div className="col">
@@ -72,14 +69,14 @@ export default class EscapePin extends Component {
         </div>
       </div>
       {
+        this.state.error &&
+        <h4 className="text-danger mb-3">{this.state.error}</h4>
+      }
+      {
         this.hasEnteredPin() &&
         <div className="d-grid mb-3">
           <button id="escape-button" className="btn btn-primary" type="button" onClick={this.submitAnswer}>Escape!</button>
         </div>
-      }
-      {
-        this.state.error &&
-        <p className="text-danger">{this.state.error}</p>
       }
     </div>
 }

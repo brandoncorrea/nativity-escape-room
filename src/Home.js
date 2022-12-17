@@ -1,6 +1,11 @@
-import { Component } from "react";
+import { Component } from "react"
+import StoreContext from './Store'
 
 export default class Home extends Component {
+  static contextType = StoreContext
+
+  onStartClicked = () => this.context.startEscapeRoom()
+
   render = () =>
     <div className="container text-center mt-3">
       <div className="mb-5">
@@ -15,22 +20,14 @@ export default class Home extends Component {
         <h3>The Decoder</h3>
         <p className="lead">Visit the decoder for each mystery and <strong><i>shed your light</i></strong> (solve the mystery)!</p>
       </div>
-      <div className="mb-5">
-        <h2>The Key</h2>
-        <p className="lead">
-            Once you have solved <strong><i>all 4 mysteries</i></strong> using each <strong><i>decoder</i></strong>, you must take one final step and earn the <strong><i>key</i></strong>. 
-            This <strong><i>key</i></strong> is a symbol of the <strong><i>keys to the Kingdom of Heaven</i></strong>! 
-            You must decipher the numbers needed on the 4-digit code page.
-        </p>
-      </div>
       <div>
         <p>
           When you have <strong><i>shed light</i></strong> on the 4 <strong><i>mysteries</i></strong> and obtained the 4-digit <strong><i>key code</i></strong>, you will be given your symbolic <strong><i>key to the Kingdom of Heaven</i></strong>!
         </p>
         <p>Go forth, shedding light to a world filled with darkness, obtaining keys to the Kingdom!</p>
       </div>
-      <div className="d-grid">
-        <a className="btn btn-primary" href="/mystery-1" >Let's Get Started!</a>
+      <div className="d-grid mb-5">
+        <button className="btn btn-primary" onClick={this.onStartClicked}>Let's Get Started!</button>
       </div>
     </div>
 }

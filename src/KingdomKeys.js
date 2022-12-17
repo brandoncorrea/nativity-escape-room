@@ -1,12 +1,10 @@
 import { Component } from "react"
-import Navigator from "./Navigator"
-import Store from "./Store"
+import StoreContext from "./Store"
 
 export default class KingdomKeys extends Component {
-  startOver() {
-    Store.clear()
-    Navigator.home()
-  }
+  static contextType = StoreContext
+
+  startOver = () => this.context.clear()
 
   render = () =>
     <div className="container text-center">

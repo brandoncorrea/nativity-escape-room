@@ -1,6 +1,5 @@
 import { Component } from "react";
-import Navigator from "./Navigator";
-import Store from "./Store";
+import StoreContext from "./Store";
 
 const ANSWER = 'the angel gabriel'
 
@@ -13,6 +12,7 @@ const errorMessages = [
 ]
 
 export default class Mystery2 extends Component {
+  static contextType = StoreContext
 
   constructor(props) {
     super(props)
@@ -31,30 +31,43 @@ export default class Mystery2 extends Component {
   onTextChange = e => this.setState({ answer: e.target.value })
   onSolveClicked = () => {
     let answer = this.plainAnswer()
-    if (answer === ANSWER) {
-      Store.answerMystery2(this.state.answer)
-      Navigator.navigate('/mystery-3')
-    }
+    if (answer === ANSWER)
+      this.context.answerMystery2()
     else
       this.setState({error: this.randomError()})
   }
 
   render = () => 
-    <div className="container text-center">
+    <div className="container text-center mt-3">
       <h2>Mystery 2</h2>
       <p className="lead">Who visited Mary and Why?</p>
       <div className="mb-3">
+        {/* {
+          [["–", "....", "."],
+            [".–", "–.", "––.", ".", ".–.."],
+            ["––.", ".–", "–...", ".–.", "..", ".", ".–.."]]
+            .map(codes =>
+            <div className="row mb-3">
+              {
+                codes.map(code =>
+                  <div className="col">
+                    <input type="text" className="form-control text-center" maxLength="1" placeholder={code} />
+                  </div>)
+              }
+            </div>
+            )
+        } */}
         <textarea className="form-control" onChange={this.onTextChange} value={this.state.answer}></textarea>
       </div>
+      {
+        this.state.error &&
+        <h4 className="text-danger mb-3">{this.state.error}</h4>
+      }
       {
         this.plainAnswer() &&
         <div className="d-grid mb-3">
           <button className="btn btn-primary" type="button" onClick={this.onSolveClicked}>Solve</button>
         </div>
-      }
-      {
-        this.state.error &&
-        <p className="text-danger">{this.state.error}</p>
       }
     </div>
 }

@@ -1,6 +1,5 @@
 import { Component } from "react";
-import Navigator from "./Navigator";
-import Store from "./Store";
+import StoreContext from "./Store";
 
 const ANSWER = 'god wanted jesus to have a humble birth so that we would know that it is important to be humble like him'
 
@@ -13,6 +12,7 @@ const errorMessages = [
 ]
 
 export default class Mystery3 extends Component {
+  static contextType = StoreContext
 
   constructor(props) {
     super(props)
@@ -31,30 +31,28 @@ export default class Mystery3 extends Component {
   onTextChange = e => this.setState({ answer: e.target.value })
   onSolveClicked = () => {
     let answer = this.plainAnswer()
-    if (answer === ANSWER) {
-      Store.answerMystery3(this.state.answer)
-      Navigator.navigate('/mystery-4')
-    }
+    if (answer === ANSWER)
+      this.context.answerMystery3()
     else
       this.setState({error: this.randomError()})
   }
 
   render = () => 
-    <div className="container text-center">
+    <div className="container text-center mt-3">
       <h2>Mystery 3</h2>
       <p className="lead">Where will a prince be born?</p>
       <div className="mb-3">
         <textarea className="form-control" onChange={this.onTextChange} value={this.state.answer}></textarea>
       </div>
       {
+        this.state.error &&
+        <h4 className="text-danger mb-3">{this.state.error}</h4>
+      }
+      {
         this.plainAnswer() &&
         <div className="d-grid mb-3">
           <button className="btn btn-primary" type="button" onClick={this.onSolveClicked}>Solve</button>
         </div>
-      }
-      {
-        this.state.error &&
-        <p className="text-danger">{this.state.error}</p>
       }
     </div>
 }

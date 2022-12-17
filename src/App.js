@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Component } from 'react';
 import './App.css';
 import EscapePin from './EscapePin'
 import FinalChallenge from './FinalChallenge'
@@ -8,26 +8,24 @@ import Mystery1 from './Mystery1';
 import Mystery2 from './Mystery2';
 import Mystery3 from './Mystery3';
 import Mystery4 from './Mystery4';
+import StoreContext from './Store';
 
-function App() {
-  return (
+export default class App extends Component {
+  static contextType = StoreContext
+
+  render = () => 
     <div className="App">
       <header className="App-header">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/mystery-1" element={<Mystery1 />} />
-            <Route path="/mystery-2" element={<Mystery2 />} />
-            <Route path="/mystery-3" element={<Mystery3 />} />
-            <Route path="/mystery-4" element={<Mystery4 />} />
-            <Route path="/escape-pin" element={<EscapePin />} />
-            <Route path="/final-challenge" element={<FinalChallenge />} />
-            <Route path="/kingdom-keys" element={<KingdomKeys />} />
-          </Routes>
-        </BrowserRouter>
+        {
+          this.context.pinEnteredCorrectly ? <KingdomKeys /> :
+          this.context.finalChallengeComplete() ? <EscapePin /> :
+          this.context.answeredMystery4 ? <FinalChallenge /> :
+          this.context.answeredMystery3 ? <Mystery4 /> :
+          this.context.answeredMystery2 ? <Mystery3 /> :
+          this.context.answeredMystery1 ? <Mystery2 /> :
+          this.context.escapeRoomStarted ? <Mystery1 /> :
+          <Home />
+        }
       </header>
     </div>
-  );
 }
-
-export default App;

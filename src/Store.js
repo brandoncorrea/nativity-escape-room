@@ -1,3 +1,5 @@
+import React, { Component } from "react"
+
 const questions = [
   {
     id: 1,
@@ -60,20 +62,70 @@ const questions = [
   }
 ]
 
-export default class Store {
-  static get = key => localStorage.getItem(key)
-  static set = (key, value) => localStorage.setItem(key, value)
-  static clear = () => localStorage.clear()
-  static pinEnteredCorrectly = () => this.get('pin-entered-correctly')
-  static savePinEntry = () => this.set('pin-entered-correctly', true)
-  static incFinalChallengeQuestionNumber = () => this.set('final-challenge-question', Store.finalChallengeQuestionNumber() + 1)
-  static finalChallengeQuestion = () => questions[this.finalChallengeQuestionNumber()]
-  static finalChallengeQuestionNumber() {
-    let question = parseInt(this.get('final-challenge-question'))
+const get = key => localStorage.getItem(key)
+const set = (key, value) => localStorage.setItem(key, value)
+
+const StoreContext = React.createContext()
+
+function initStore () {
+  let store
+  try {
+    store = JSON.parse(get('store')) || {}
+  } catch { 
+    store = {} 
+  }
+  return typeof store === 'object' ? store : {}
+}
+
+class StoreProvider extends Component {
+  state = initStore()
+  
+  savePinEntry = () => this.setStore({ pinEnteredCorrectly: true })
+  answerMystery1 = () => this.setStore({ answeredMystery1: true })
+  answerMystery2 = () => this.setStore({ answeredMystery2: true })
+  answerMystery3 = () => this.setStore({ answeredMystery3: true })
+  answerMystery4 = () => this.setStore({ answeredMystery4: true })
+  startEscapeRoom = () => this.setStore({ escapeRoomStarted: true })
+  setFinalChallengeQuestionNumber = n => this.setStore({ finalChallengeQuestion: n })
+  getFinalChallengeQuestion = n => questions[n]
+  finalChallengeComplete = () => this.finalChallengeQuestionNumber() >= questions.length
+  currentFinalChallengeQuestion = () => this.getFinalChallengeQuestion(this.finalChallengeQuestionNumber())
+
+  setStore = store => {
+    let newState = {...this.state, ...store}
+    set('store', JSON.stringify(newState))
+    this.setState(newState)
+  }
+
+  clear = () => {
+    let state = {
+      finalChallengeQuestion: 0,
+      pinEnteredCorrectly: false,
+      answeredMystery1: false,
+      answeredMystery2: false,
+      answeredMystery3: false,
+      answeredMystery4: false,
+      escapeRoomStarted: false
+    }
+    set('store', JSON.stringify(state))
+    this.setState(state)
+  }
+
+  finalChallengeQuestionNumber = () => {
+    let question = parseInt(this.state.finalChallengeQuestion)
     return isNaN(question) ? 0 : question
   }
-  static answerMystery1 = answer => this.set('answer-myster-1', answer)
-  static answerMystery2 = answer => this.set('answer-myster-2', answer)
-  static answerMystery3 = answer => this.set('answer-myster-3', answer)
-  static answerMystery4 = answer => this.set('answer-myster-4', answer)
+
+  render() {
+    const { children } = this.props
+
+    return (
+      <StoreContext.Provider value={{ ...this.state, ...this }}>
+        { children }
+      </StoreContext.Provider>
+    )
+  }
 }
+
+export default StoreContext
+export { StoreProvider }

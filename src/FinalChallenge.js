@@ -1,19 +1,19 @@
 import { Component } from "react";
-import Navigator from "./Navigator";
-import Store from "./Store";
+import StoreContext from "./Store";
 
 export default class FinalChallenge extends Component {
+  static contextType = StoreContext
 
   constructor(props) {
     super(props)
     this.state = {
-      question: Store.finalChallengeQuestion(),
+      question: {},
       answer: '',
       error: ''
     }
-
-    if (!this.state.question) Navigator.kingdomKeys()
   }
+
+  componentDidMount = () => this.setState({question: this.context.currentFinalChallengeQuestion()})
 
   onValueChange = e => this.setState({answer: e.target.value})
   correctlyAnswered = () => this.parsedAnswer() === this.state.question.answer
@@ -22,18 +22,12 @@ export default class FinalChallenge extends Component {
       parseInt(this.state.answer) :
       this.state.answer.trim().toLowerCase()
 
-  showQuestionOrNavigate = () =>
-    Store.finalChallengeQuestion() ?
-      this.setState({
-        question: Store.finalChallengeQuestion(), 
-        answer: '',
-        error: ''
-      }) :
-      Navigator.kingdomKeys()
-
   showNextQuestion() {
-    Store.incFinalChallengeQuestionNumber()
-    this.showQuestionOrNavigate()
+    let nextQuestion = this.context.finalChallengeQuestionNumber() + 1
+    this.context.setFinalChallengeQuestionNumber(nextQuestion)
+    let question = this.context.getFinalChallengeQuestion(nextQuestion)
+    if (question)
+      this.setState({ question, answer: '', error: '' })
   }
 
   submitAnswer = () =>
@@ -42,7 +36,7 @@ export default class FinalChallenge extends Component {
       this.setState({error: "That was not the right answer!"})
 
   render = () =>
-    <div className="container text-center">
+    <div className="container text-center mt-3">
       <h1>Final Challenge</h1>
       <label className="form-label h5">{this.state.question.text}</label>
       <div key={this.state.question.id} className="mb-3">
@@ -74,14 +68,14 @@ export default class FinalChallenge extends Component {
         }
       </div>
       {
+        this.state.error &&
+        <h3 className="text-danger mb-3">{this.state.error}</h3>
+      }
+      {
         this.state.answer &&
         <div className="d-grid mb-3">
           <button className="btn btn-primary" type="button" onClick={this.submitAnswer}>Submit</button>
         </div>
-      }
-      {
-        this.state.error &&
-        <p className="text-danger">{this.state.error}</p>
       }
     </div>
 }
