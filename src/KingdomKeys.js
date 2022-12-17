@@ -9,6 +9,8 @@ export default class KingdomKeys extends Component {
   render = () =>
     <div className="container text-center">
       <p className="lead">You've obtained the Keys to the Kingdom of Heaven!</p>
+      <img className="img-fluid mb-3" src="./dory-escape.gif" />
+      <br />
       <button className="btn btn-primary" onClick={this.startOver}>Start Over</button>
     </div>
 }
