@@ -11,6 +11,7 @@ export default class Mystery2 extends Component {
       <WrittenResponse
         title="Mystery 2"
         question="Who visited Mary and Why?"
+        hint= {"He was born in the stable\non that special night.\nWhen you find that spot,\nthe key is in plain sight."}
         errorMessages={[
           "Hmm... that doesn't seem quite right.",
           "The contraption jiggles, but nothing happens.",

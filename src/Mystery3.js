@@ -11,6 +11,7 @@ export default class Mystery3 extends Component {
       <WrittenResponse
         title="Mystery 3"
         question="Where will a prince be born?"
+        hint={"You're so close to being free...\nor maybe it's a trap!\nTo find your next key,\nyou need to make (or unmake) a \"rap\"."}
         errorMessages={[
           "Hmm... that doesn't seem quite right.",
           "The contraption jiggles, but nothing happens.",

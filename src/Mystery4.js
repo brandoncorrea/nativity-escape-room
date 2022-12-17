@@ -11,6 +11,7 @@ export default class Mystery4 extends Component {
       <WrittenResponse
         title="Mystery 4"
         question="How did the Wise Men know where to go?"
+        hint={"The wise men came\nbefore Herod wanted to kill the baby boys.\nTo find your next key,\nsearch somewhere among the toys."}
         errorMessages={[
           "Hmm... that doesn't seem quite right.",
           "The contraption jiggles, but nothing happens.",

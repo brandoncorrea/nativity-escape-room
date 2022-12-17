@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.modal {
+  text-align: center;
+}
+
+.modal p {
+  white-space: pre;
+}
+
+.question-title * {
+  margin: 0;
+}
+
+.question-title i {
+  font-weight: 400;
+  font-size: 1.5rem;
+  cursor: pointer
+}
+
+.question-title {
+  gap: 1rem;
+  align-items: center
+}
